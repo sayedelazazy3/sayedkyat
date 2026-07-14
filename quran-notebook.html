@@ -439,6 +439,34 @@ function renderStudentList(){
   }).join('');
 }
 
+function computePaymentsWithBalance(s){
+  // نرتب زمنيًا من الأقدم للأحدث عشان نحسب الرصيد التراكمي الصحيح لكل شهر
+  const sorted = s.payments
+    .map((p, originalIndex) => ({...p, originalIndex}))
+    .sort((a,b)=> new Date(a.date) - new Date(b.date));
+
+  const monthCumulative = {}; // key: "YYYY-M" -> إجمالي مدفوع حتى الآن
+  const results = [];
+
+  sorted.forEach(p=>{
+    const d = new Date(p.date);
+    const key = d.getFullYear() + '-' + d.getMonth();
+    monthCumulative[key] = (monthCumulative[key] || 0) + p.amount;
+    const cumulative = monthCumulative[key];
+    const remain = s.monthlyFee - cumulative;
+    results.push({
+      ...p,
+      remainAfter: remain > 0 ? remain : 0,
+      extraAfter: remain < 0 ? Math.abs(remain) : 0,
+      fullyPaid: remain <= 0
+    });
+  });
+
+  // نرجعهم لنفس ترتيب العرض الأصلي (الأحدث أولاً)
+  results.sort((a,b)=> b.originalIndex - a.originalIndex);
+  return results;
+}
+
 function monthPaid(s){
   const now = new Date();
   return s.payments
@@ -473,13 +501,19 @@ function openStudent(name){
       </div>
     `).join('');
 
+  const paymentsWithBalance = computePaymentsWithBalance(s);
   document.getElementById('student-payments').innerHTML = s.payments.length === 0
     ? `<div class="empty">لسه مفيش دفعات مسجلة</div>`
-    : s.payments.map((p,i)=>`
+    : paymentsWithBalance.map((p)=>`
       <div class="entry">
         <div class="top"><span class="type">${p.amount} جنيه</span><span class="date">${new Date(p.date).toLocaleDateString('ar-EG')}</span></div>
         ${p.note ? `<div class="detail">${p.note}</div>` : ''}
-        <span class="del" onclick="deletePayment(${i})">حذف</span>
+        <div class="detail">
+          ${p.fullyPaid
+            ? (p.extraAfter > 0 ? `تم السداد بالكامل، وزيادة ${p.extraAfter} جنيه` : 'تم السداد بالكامل لهذا الشهر ✅')
+            : `الباقي بعد هذه الدفعة: ${p.remainAfter} جنيه`}
+        </div>
+        <span class="del" onclick="deletePayment(${p.originalIndex})">حذف</span>
       </div>
     `).join('');
 
