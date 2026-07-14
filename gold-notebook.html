@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دفتر الذهب | سيد العزازي</title>
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0c3b2e">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --emerald-deep:#0c3b2e;
+    --emerald:#12503d;
+    --emerald-light:#1b6b52;
+    --gold:#c9a24b;
+    --gold-bright:#e6c565;
+    --parchment:#f6f1e4;
+    --ink:#1c2420;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--emerald-deep);
+    background-image:radial-gradient(circle at 50% 30%, rgba(230,197,101,0.07), transparent 45%);
+    color:var(--parchment);
+    font-family:'Cairo', sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+  }
+  .badge{
+    width:88px; height:88px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--emerald-light), var(--emerald-deep));
+    display:flex; align-items:center; justify-content:center;
+    font-size:2.4rem;
+    box-shadow:0 0 0 3px var(--gold), 0 10px 24px rgba(0,0,0,0.35);
+    margin-bottom:20px;
+  }
+  h1{
+    font-family:'Aref Ruqaa', serif;
+    color:var(--gold-bright);
+    font-size:1.7rem;
+    margin-bottom:8px;
+  }
+  .rule{
+    width:60px; height:2px; margin:12px auto;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  p{
+    font-size:0.85rem;
+    color:rgba(246,241,228,0.65);
+    max-width:280px;
+    line-height:1.8;
+  }
+  a.back{
+    display:inline-block;
+    margin-top:26px;
+    padding:11px 24px;
+    border:1.5px solid var(--gold);
+    border-radius:30px;
+    color:var(--gold-bright);
+    text-decoration:none;
+    font-size:0.85rem;
+    font-weight:700;
+  }
+</style>
+</head>
+<body>
+  <div class="badge">🪙</div>
+  <h1 class="brand-name">دفتر الذهب</h1>
+  <div class="rule"></div>
+  <p>هذا الدفتر جاري تجهيزه حاليًا، وسيتم تفعيله قريبًا بإذن الله.</p>
+  <a class="back" href="index.html">◀ رجوع للدفاتر</a>
+</body>
+</html>
