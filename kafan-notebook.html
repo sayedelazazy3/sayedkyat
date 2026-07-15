@@ -10,71 +10,373 @@
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --emerald-deep:#0c3b2e;
-    --emerald:#12503d;
-    --emerald-light:#1b6b52;
-    --gold:#c9a24b;
-    --gold-bright:#e6c565;
-    --parchment:#f6f1e4;
-    --ink:#1c2420;
+    --emerald-deep:#0c3b2e; --emerald:#12503d; --emerald-light:#1b6b52;
+    --gold:#c9a24b; --gold-bright:#e6c565;
+    --parchment:#f6f1e4; --parchment-dark:#ece3cc; --ink:#1c2420;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
     background:var(--emerald-deep);
-    background-image:radial-gradient(circle at 50% 30%, rgba(230,197,101,0.07), transparent 45%);
-    color:var(--parchment);
-    font-family:'Cairo', sans-serif;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:24px;
+    background-image:radial-gradient(circle at 15% 10%, rgba(230,197,101,0.06), transparent 40%),
+                      radial-gradient(circle at 85% 90%, rgba(230,197,101,0.05), transparent 40%);
+    color:var(--parchment); font-family:'Cairo', sans-serif;
+    min-height:100vh; padding-bottom:50px;
   }
-  .badge{
-    width:88px; height:88px;
-    border-radius:50%;
+  .brand-name{ font-family:'Amiri', serif; }
+  header{ display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid rgba(230,197,101,0.25); }
+  header .back{ color:var(--gold-bright); text-decoration:none; font-size:0.85rem; font-weight:700; }
+  header h1{ font-family:'Aref Ruqaa', serif; color:var(--gold-bright); font-size:1.2rem; }
+  header .spacer{width:60px;}
+
+  .hero{ text-align:center; padding:20px 20px 6px; }
+  .hero .badge{
+    width:78px; height:78px; margin:0 auto 10px; border-radius:50%;
     background:radial-gradient(circle at 35% 30%, var(--emerald-light), var(--emerald-deep));
-    display:flex; align-items:center; justify-content:center;
-    font-size:2.4rem;
-    box-shadow:0 0 0 3px var(--gold), 0 10px 24px rgba(0,0,0,0.35);
-    margin-bottom:20px;
+    display:flex; align-items:center; justify-content:center; font-size:2rem;
+    box-shadow:0 0 0 3px var(--gold), 0 8px 18px rgba(0,0,0,0.3);
   }
-  h1{
-    font-family:'Aref Ruqaa', serif;
-    color:var(--gold-bright);
-    font-size:1.7rem;
-    margin-bottom:8px;
+  .hero p{ font-size:0.8rem; color:rgba(246,241,228,0.6); margin-top:6px; }
+
+  .tabs{ display:flex; gap:6px; padding:16px 16px 14px; }
+  .tab{
+    flex:1; text-align:center; padding:10px 4px;
+    border:1px solid rgba(230,197,101,0.35); border-radius:10px;
+    font-size:0.78rem; color:rgba(246,241,228,0.75); cursor:pointer;
   }
-  .rule{
-    width:60px; height:2px; margin:12px auto;
-    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  .tab.active{ background:var(--gold); color:var(--emerald-deep); border-color:var(--gold); font-weight:800; }
+
+  .panel{ display:none; padding:0 16px; }
+  .panel.active{ display:block; animation:fadeIn .2s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  .card{
+    background:var(--parchment); color:var(--ink); border-radius:14px; padding:18px;
+    margin-bottom:14px; box-shadow:0 8px 20px rgba(0,0,0,0.28); border:1px solid var(--parchment-dark);
   }
-  p{
-    font-size:0.85rem;
-    color:rgba(246,241,228,0.65);
-    max-width:280px;
-    line-height:1.8;
+  .field{ margin-bottom:12px; }
+  .field label{ display:block; font-size:0.78rem; color:var(--emerald); font-weight:700; margin-bottom:5px; }
+  .field input, .field select, .field textarea{
+    width:100%; padding:10px 12px; border:1.5px solid var(--parchment-dark); border-radius:8px;
+    font-family:'Cairo', sans-serif; font-size:0.9rem; background:#fff; color:var(--ink);
   }
-  a.back{
-    display:inline-block;
-    margin-top:26px;
-    padding:11px 24px;
-    border:1.5px solid var(--gold);
-    border-radius:30px;
-    color:var(--gold-bright);
-    text-decoration:none;
-    font-size:0.85rem;
-    font-weight:700;
+  .row2{ display:flex; gap:8px; }
+  .row2 .field{ flex:1; }
+
+  .btn{
+    display:block; width:100%; padding:12px; border:none; border-radius:9px;
+    background:linear-gradient(135deg, var(--emerald), var(--emerald-deep));
+    color:var(--gold-bright); font-family:'Cairo', sans-serif; font-weight:800; font-size:0.9rem; cursor:pointer;
   }
+  .btn.gold{ background:linear-gradient(135deg, var(--gold-bright), var(--gold)); color:var(--emerald-deep); }
+  .btn.ghost{ background:transparent; border:1.5px solid var(--emerald); color:var(--emerald); }
+  .btn.danger{ background:linear-gradient(135deg, #a5322a, #7a231d); color:#fff; }
+
+  .hint{ font-size:0.74rem; color:rgba(28,36,32,0.55); margin-top:6px; text-align:center; }
+
+  .item-row{
+    background:var(--parchment); color:var(--ink); border-radius:12px; padding:13px 15px; margin-bottom:9px;
+    display:flex; justify-content:space-between; align-items:center; border:1px solid var(--parchment-dark);
+  }
+  .item-row .name{ font-weight:800; font-size:0.95rem; }
+  .item-row .sub{ font-size:0.72rem; color:rgba(28,36,32,0.55); margin-top:2px;}
+  .item-row .qty{ font-weight:800; font-size:0.9rem; color:var(--emerald); }
+  .item-row .qty.low{ color:#a5322a; }
+
+  .empty{ text-align:center; padding:30px 20px; color:rgba(246,241,228,0.55); font-size:0.85rem; }
+
+  .section-title{ font-size:0.85rem; font-weight:800; color:var(--gold-bright); margin:14px 0 8px; }
+
+  .entry{
+    background:var(--parchment); color:var(--ink); border-radius:12px; padding:13px 15px; margin-bottom:9px;
+    border-right:4px solid var(--gold); position:relative;
+  }
+  .entry .top{ display:flex; justify-content:space-between; margin-bottom:4px; }
+  .entry .type{ font-weight:800; font-size:0.88rem; }
+  .entry .date{ font-size:0.7rem; color:rgba(28,36,32,0.5); }
+  .entry .detail{ font-size:0.82rem; color:rgba(28,36,32,0.75); margin-bottom:2px; }
+  .entry .del{ position:absolute; left:12px; bottom:10px; font-size:0.7rem; color:#a5322a; cursor:pointer; }
+
+  .summary-card{
+    background:linear-gradient(135deg, var(--emerald), var(--emerald-light));
+    border-radius:14px; padding:14px 12px; margin-bottom:14px;
+    display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .summary-card div{ text-align:center; flex:1; min-width:80px; }
+  .summary-card .label{ font-size:0.65rem; color:rgba(246,241,228,0.7); margin-bottom:3px;}
+  .summary-card .value{ font-size:0.95rem; font-weight:800; color:var(--gold-bright); }
+
+  .toast{
+    position:fixed; bottom:20px; right:50%; transform:translateX(50%);
+    background:var(--gold-bright); color:var(--emerald-deep); padding:11px 20px; border-radius:30px;
+    font-weight:800; font-size:0.8rem; box-shadow:0 8px 20px rgba(0,0,0,0.4);
+    opacity:0; pointer-events:none; transition:opacity .3s, transform .3s; z-index:999; white-space:nowrap;
+  }
+  .toast.show{ opacity:1; transform:translateX(50%) translateY(-6px); }
 </style>
 </head>
 <body>
-  <div class="badge">⚰️</div>
+
+<header>
+  <a class="back" href="index.html">◀ الدفاتر</a>
   <h1 class="brand-name">دفتر الأكفان</h1>
-  <div class="rule"></div>
-  <p>هذا الدفتر جاري تجهيزه حاليًا، وسيتم تفعيله قريبًا بإذن الله.</p>
-  <a class="back" href="index.html">◀ رجوع للدفاتر</a>
+  <div class="spacer"></div>
+</header>
+
+<div class="hero">
+  <div class="badge">⚰️</div>
+  <p>متابعة المخزون والمبيعات بدقة وأمانة</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" data-tab="stock" onclick="switchTab('stock')">المخزون</div>
+  <div class="tab" data-tab="sell" onclick="switchTab('sell')">تسجيل بيع</div>
+  <div class="tab" data-tab="report" onclick="switchTab('report')">التقرير</div>
+</div>
+
+<!-- ===== المخزون ===== -->
+<div class="panel active" id="panel-stock">
+  <div class="card">
+    <div class="field"><label>نوع الصنف</label><input id="st-type" placeholder="مثال: كفن رجالي، كفن حريمي..."></div>
+    <div class="row2">
+      <div class="field"><label>الكمية المضافة</label><input id="st-qty" type="number" min="1" value="1"></div>
+      <div class="field"><label>سعر الشراء للقطعة (جنيه)</label><input id="st-price" type="number" min="0"></div>
+    </div>
+    <button class="btn gold" onclick="addStock()">إضافة للمخزون</button>
+  </div>
+  <div class="section-title">المخزون الحالي</div>
+  <div id="stock-list"></div>
+</div>
+
+<!-- ===== تسجيل بيع ===== -->
+<div class="panel" id="panel-sell">
+  <div class="card">
+    <div class="field">
+      <label>الصنف</label>
+      <select id="sl-type"></select>
+    </div>
+    <div class="field"><label>الكمية المباعة</label><input id="sl-qty" type="number" min="1" value="1"></div>
+    <div class="field"><label>سعر البيع الإجمالي (جنيه)</label><input id="sl-price" type="number" min="0"></div>
+    <div class="field"><label>اسم المشتري (اختياري)</label><input id="sl-buyer" placeholder="اختياري"></div>
+    <button class="btn gold" onclick="sellStock()">تسجيل البيع</button>
+    <p class="hint">هتتخصم الكمية المباعة تلقائيًا من المخزون</p>
+  </div>
+  <div class="section-title">آخر المبيعات</div>
+  <div id="sales-list"></div>
+  <div style="display:flex; gap:8px; margin-top:16px;">
+    <button class="btn ghost" style="flex:1; font-size:0.78rem; padding:10px;" onclick="exportBackup()">⬇ نسخة احتياطية</button>
+    <label class="btn ghost" style="flex:1; font-size:0.78rem; padding:10px; text-align:center; cursor:pointer;">
+      ⬆ استرجاع نسخة
+      <input type="file" accept=".json" style="display:none" onchange="importBackup(this)">
+    </label>
+  </div>
+</div>
+
+<!-- ===== التقرير ===== -->
+<div class="panel" id="panel-report">
+  <div id="report-content"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let stock = [];   // [{id, type, qty, unitCost}]
+let sales = [];   // [{id, type, qty, salePrice, buyer, date, costAtSale}]
+const STOCK_KEY = "kafan-stock";
+const SALES_KEY = "kafan-sales";
+
+function loadData(){
+  try{ stock = JSON.parse(localStorage.getItem(STOCK_KEY) || "[]"); }
+  catch(e){ stock = []; }
+  try{ sales = JSON.parse(localStorage.getItem(SALES_KEY) || "[]"); }
+  catch(e){ sales = []; }
+  renderStock();
+  renderSalesList();
+}
+function saveStockData(){
+  try{ localStorage.setItem(STOCK_KEY, JSON.stringify(stock)); }
+  catch(e){ showToast('تعذر حفظ بيانات المخزون'); }
+}
+function saveSalesData(){
+  try{ localStorage.setItem(SALES_KEY, JSON.stringify(sales)); }
+  catch(e){ showToast('تعذر حفظ بيانات المبيعات'); }
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=> t.classList.remove('show'), 2200);
+}
+
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  const map = {stock:'panel-stock', sell:'panel-sell', report:'panel-report'};
+  document.querySelector(`.tab[data-tab="${name}"]`).classList.add('active');
+  document.getElementById(map[name]).classList.add('active');
+  if(name==='stock') renderStock();
+  if(name==='sell'){ refreshSellDropdown(); renderSalesList(); }
+  if(name==='report') renderReport();
+}
+
+/* ===== المخزون ===== */
+function addStock(){
+  const type = document.getElementById('st-type').value.trim();
+  const qty = parseInt(document.getElementById('st-qty').value);
+  const unitCost = parseFloat(document.getElementById('st-price').value);
+
+  if(!type){ showToast('اكتب نوع الصنف'); return; }
+  if(!qty || qty <= 0){ showToast('اكتب كمية صحيحة'); return; }
+  if(unitCost === undefined || isNaN(unitCost) || unitCost < 0){ showToast('اكتب سعر شراء صحيح'); return; }
+
+  // لو نفس النوع موجود، نضيف للكمية بدل ما نعمل صف جديد
+  const existing = stock.find(s => s.type === type);
+  if(existing){
+    existing.qty += qty;
+    existing.unitCost = unitCost; // نحدث آخر سعر شراء
+  } else {
+    stock.push({ id: Date.now() + Math.random().toString(36).slice(2,7), type, qty, unitCost });
+  }
+  saveStockData();
+
+  document.getElementById('st-type').value = '';
+  document.getElementById('st-qty').value = '1';
+  document.getElementById('st-price').value = '';
+  showToast(`تم إضافة ${qty} إلى ${type} ✅`);
+}
+
+function renderStock(){
+  const list = document.getElementById('stock-list');
+  if(stock.length === 0){
+    list.innerHTML = `<div class="empty">المخزون فارغ حاليًا</div>`;
+    return;
+  }
+  list.innerHTML = stock.map(s=>`
+    <div class="item-row">
+      <div>
+        <div class="name">${s.type}</div>
+        <div class="sub">سعر الشراء للقطعة: ${s.unitCost} ج</div>
+      </div>
+      <span class="qty ${s.qty <= 2 ? 'low' : ''}">${s.qty} قطعة</span>
+    </div>
+  `).join('');
+}
+
+/* ===== تسجيل بيع ===== */
+function refreshSellDropdown(){
+  const sel = document.getElementById('sl-type');
+  const available = stock.filter(s => s.qty > 0);
+  if(available.length === 0){
+    sel.innerHTML = `<option value="">لا يوجد أصناف متاحة بالمخزون</option>`;
+    return;
+  }
+  sel.innerHTML = available.map(s=> `<option value="${s.id}">${s.type} (متاح: ${s.qty})</option>`).join('');
+}
+
+function sellStock(){
+  const stockId = document.getElementById('sl-type').value;
+  const qty = parseInt(document.getElementById('sl-qty').value);
+  const price = parseFloat(document.getElementById('sl-price').value);
+  const buyer = document.getElementById('sl-buyer').value.trim() || 'غير مسجل';
+
+  if(!stockId){ showToast('اختر صنف من المخزون'); return; }
+  const item = stock.find(s => s.id === stockId);
+  if(!qty || qty <= 0){ showToast('اكتب كمية صحيحة'); return; }
+  if(qty > item.qty){ showToast(`الكمية المتاحة فقط ${item.qty}`); return; }
+  if(!price || price <= 0){ showToast('اكتب سعر بيع صحيح'); return; }
+
+  item.qty -= qty;
+  saveStockData();
+
+  sales.unshift({
+    id: Date.now() + Math.random().toString(36).slice(2,7),
+    type: item.type, qty, salePrice: price, buyer,
+    costAtSale: item.unitCost * qty,
+    date: new Date().toISOString()
+  });
+  saveSalesData();
+
+  document.getElementById('sl-qty').value = '1';
+  document.getElementById('sl-price').value = '';
+  document.getElementById('sl-buyer').value = '';
+  refreshSellDropdown();
+  renderSalesList();
+  showToast('تم تسجيل عملية البيع ✅');
+}
+
+function renderSalesList(){
+  const list = document.getElementById('sales-list');
+  if(sales.length === 0){
+    list.innerHTML = `<div class="empty">لا يوجد مبيعات مسجلة بعد</div>`;
+    return;
+  }
+  list.innerHTML = sales.slice(0,20).map(s=>`
+    <div class="entry">
+      <div class="top"><span class="type">${s.type} × ${s.qty}</span><span class="date">${new Date(s.date).toLocaleDateString('ar-EG')}</span></div>
+      <div class="detail">المشتري: ${s.buyer}</div>
+      <div class="detail">سعر البيع: ${s.salePrice} جنيه | الربح: ${s.salePrice - s.costAtSale} جنيه</div>
+      <span class="del" onclick="deleteSale('${s.id}')">حذف</span>
+    </div>
+  `).join('');
+}
+
+function deleteSale(id){
+  if(!confirm('حذف عملية البيع دي؟ الكمية لن ترجع تلقائيًا للمخزون')) return;
+  sales = sales.filter(s => s.id !== id);
+  saveSalesData();
+  renderSalesList();
+}
+
+/* ===== التقرير ===== */
+function renderReport(){
+  const totalStockQty = stock.reduce((s,i)=> s + i.qty, 0);
+  const totalStockValue = stock.reduce((s,i)=> s + (i.qty * i.unitCost), 0);
+  const totalSalesRevenue = sales.reduce((s,x)=> s + x.salePrice, 0);
+  const totalCost = sales.reduce((s,x)=> s + x.costAtSale, 0);
+  const netProfit = totalSalesRevenue - totalCost;
+  const totalUnitsSold = sales.reduce((s,x)=> s + x.qty, 0);
+
+  document.getElementById('report-content').innerHTML = `
+    <div class="card">
+      <div class="field"><label>إجمالي القطع في المخزون</label><div style="font-size:1.1rem; font-weight:800;">${totalStockQty} قطعة</div></div>
+      <div class="field"><label>قيمة المخزون الحالي</label><div style="font-size:1.1rem; font-weight:800;">${totalStockValue} جنيه</div></div>
+      <div class="field"><label>عدد القطع المباعة</label><div style="font-size:1.1rem; font-weight:800;">${totalUnitsSold} قطعة</div></div>
+      <div class="field"><label>إجمالي المبيعات</label><div style="font-size:1.1rem; font-weight:800;">${totalSalesRevenue} جنيه</div></div>
+      <div class="field"><label>صافي الربح</label><div style="font-size:1.3rem; font-weight:800; color:var(--emerald);">${netProfit} جنيه</div></div>
+    </div>
+  `;
+}
+
+/* ===== نسخ احتياطي ===== */
+function exportBackup(){
+  const data = { stock, sales };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'نسخة-احتياطية-الأكفان-' + new Date().toLocaleDateString('en-GB').replace(/\//g,'-') + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function importBackup(input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try{
+      const data = JSON.parse(e.target.result);
+      stock = data.stock || [];
+      sales = data.sales || [];
+      saveStockData();
+      saveSalesData();
+      renderStock(); renderSalesList();
+      showToast('تم استرجاع النسخة الاحتياطية ✅');
+    }catch(err){ showToast('الملف غير صالح'); }
+  };
+  reader.readAsText(file);
+}
+
+loadData();
+</script>
 </body>
 </html>
