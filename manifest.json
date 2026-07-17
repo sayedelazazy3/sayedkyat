@@ -1,7 +1,7 @@
 {
-  "name": "سيد العزازي - دفتر الخياطة",
-  "short_name":"  سيد العزازي",
-  "start_url": "./index.html",
+  "name": "دفتر سنابل - سيد العزازي",
+  "short_name": "دفتر سنابل",
+  "start_url": "./sayed_alazazy_app.html",
   "display": "standalone",
   "background_color": "#0c3b2e",
   "theme_color": "#0c3b2e",
