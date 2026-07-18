@@ -43,13 +43,47 @@
   header .spacer{width:60px;}
 
   .hero{ text-align:center; padding:20px 20px 6px; }
-  .hero .badge{
-    width:78px; height:78px; margin:0 auto 10px;
-    border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, var(--emerald-light), var(--emerald-deep));
-    display:flex; align-items:center; justify-content:center;
-    font-size:2.1rem;
-    box-shadow:0 0 0 3px var(--gold), 0 8px 18px rgba(0,0,0,0.3);
+  .mushaf-cover{
+    width:104px; height:138px; margin:0 auto 10px;
+    border-radius:6px;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(230,197,101,0.06) 0%, transparent 60%),
+      linear-gradient(160deg, #0e4433, #0a3226 60%, #072318);
+    border:3px solid var(--gold);
+    box-shadow:
+      0 8px 18px rgba(0,0,0,0.4),
+      inset 0 0 0 1px rgba(230,197,101,0.25),
+      inset 0 0 14px rgba(0,0,0,0.5);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    position:relative;
+    padding:8px 6px;
+  }
+  .mushaf-cover::before{
+    content:"";
+    position:absolute; inset:6px;
+    border:1px solid rgba(230,197,101,0.55);
+    border-radius:3px;
+    pointer-events:none;
+  }
+  .mushaf-cover .mushaf-ornament{
+    font-size:0.85rem;
+    color:var(--gold-bright);
+    letter-spacing:2px;
+    margin-bottom:4px;
+  }
+  .mushaf-cover .mushaf-title{
+    font-family:'Aref Ruqaa', serif;
+    font-size:1.15rem;
+    color:var(--gold-bright);
+    font-weight:700;
+    line-height:1.35;
+    text-shadow:0 1px 2px rgba(0,0,0,0.5);
+  }
+  .mushaf-cover .mushaf-sub{
+    font-size:0.5rem;
+    color:rgba(230,197,101,0.7);
+    margin-top:5px;
+    letter-spacing:1px;
   }
   .hero p{ font-size:0.8rem; color:rgba(246,241,228,0.6); margin-top:6px; }
 
@@ -162,7 +196,11 @@
 </header>
 
 <div class="hero">
-  <div class="badge">📖</div>
+  <div class="mushaf-cover">
+    <div class="mushaf-ornament">۞ ۞ ۞</div>
+    <div class="mushaf-title">القرآن<br>الكريم</div>
+    <div class="mushaf-sub">مصحف المدينة</div>
+  </div>
   <p>متابعتك الشخصية، ومتابعة كل طالب في صفحته</p>
 </div>
 
