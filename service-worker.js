@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sayed-alazazy-cache-v2';
+const CACHE_NAME = 'sayed-alazazy-cache-v3';
 
 const PRECACHE_URLS = [
   './',
